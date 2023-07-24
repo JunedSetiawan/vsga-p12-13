@@ -36,22 +36,30 @@ $koneksi->close();
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </span>
-
                 <div class="flex-1">
                     <strong class="block font-medium text-gray-900"> Changes saved </strong>
-
                     <p class="mt-1 text-sm text-gray-700">
                         Berhasil Menghapus Data Siswa
                     </p>
                 </div>
-
-                <button id="closeButton" class="text-gray-500 transition hover:text-gray-600">
-                    <span class="sr-only">Dismiss popup</span>
-
+            </div>
+        </div>
+        ';
+    } elseif (isset($_GET['update_success']) && $_GET['update_success'] === 'true') {
+        echo '
+        <div id="successAlerts" role="alert" class="absolute mt-4 left-1/3 shadow-xl rounded-xl border border-gray-100 bg-white p-4 shadow-xl">
+            <div class="flex items-start gap-4">
+                <span class="text-green-600">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                </button>
+                </span>
+                <div class="flex-1">
+                    <strong class="block font-medium text-gray-900"> Changes saved </strong>
+                    <p class="mt-1 text-sm text-gray-700">
+                        Berhasil mengupdate Data Siswa
+                    </p>
+                </div>
             </div>
         </div>
         ';
@@ -81,7 +89,6 @@ $koneksi->close();
 
                 <span class="px-3 py-1 text-sm text-blue-600 bg-blue-100 rounded-full dark:bg-gray-800 dark:text-blue-400"><?php echo $totalSiswa ?> siswa</span>
             </div>
-
             <div class="flex flex-col mt-6">
                 <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
@@ -95,17 +102,14 @@ $koneksi->close();
                                                 <span>Nama</span>
                                             </div>
                                         </th>
-
                                         <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                             Alamat
                                         </th>
                                         <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                             Jenis Kelamin
                                         </th>
-
                                         <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Agama</th>
                                         <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Sekolah Asal</th>
-
                                         <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Aksi</th>
                                     </tr>
                                 </thead>
@@ -166,13 +170,17 @@ $koneksi->close();
         </div>
     </div>
     <script>
-        // Ambil parameter status dari URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const status = urlParams.get('delete_success');
+        const urlParamsDelete = new URLSearchParams(window.location.search);
+        const status = urlParamsDelete.get('delete_success');
 
-        // Periksa apakah parameter status adalah 'success', jika ya, tampilkan pesan berhasil
         if (status === 'true') {
-            // Hapus parameter status dari URL tanpa melakukan reload halaman
+            history.replaceState(null, null, window.location.pathname);
+        }
+        //else
+        const urlParamsUpdate = new URLSearchParams(window.location.search);
+        const updateStatus = urlParamsUpdate.get('update_success');
+
+        if (updateStatus === 'true') {
             history.replaceState(null, null, window.location.pathname);
         }
     </script>
